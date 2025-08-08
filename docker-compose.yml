@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  scryer-bot:
+    build: .
+    container_name: scryer-discord-bot
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    volumes:
+      # Persist event data between container restarts
+      - ./data:/app/data
+      # Mount current directory's event data files
+      - ./eventData*.json:/app/eventData*.json
+    networks:
+      - scryer-network
+    # Optional: Add logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  scryer-network:
+    driver: bridge
