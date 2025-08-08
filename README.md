@@ -41,12 +41,36 @@ Create a `.env` file in the project root:
 BOT_TOKEN=your_discord_bot_token_here
 ```
 
-### Local Development
+### Quick Start
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/zackmckenna/scryer-discord-bot.git
+cd scryer-discord-bot
+```
+
+2. **Install dependencies:**
+```bash
+npm install
+```
+
+3. **Configure environment:**
+```bash
+cp .env.example .env
+# Edit .env and add your Discord bot token
+```
+
+4. **Run the bot:**
+```bash
+npm start
+```
+
+### Detailed Setup
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd scryer
+git clone https://github.com/zackmckenna/scryer-discord-bot.git
+cd scryer-discord-bot
 ```
 
 2. Install dependencies:
@@ -60,7 +84,7 @@ npm install
 ```bash
 npm start
 # or for development with auto-restart:
-npm run watch
+npm run dev
 ```
 
 ### Docker Deployment
@@ -81,10 +105,16 @@ docker run -d --name scryer-bot --env-file .env -v $(pwd)/data:/app/data scryer-
 1. Go to the [Discord Developer Portal](https://discord.com/developers/applications)
 2. Create a new application and bot
 3. Copy the bot token to your `.env` file
-4. Invite the bot to your server with the following permissions:
-   - Send Messages
-   - Read Message History
-   - Use Slash Commands (optional for future updates)
+4. Generate an invite link with the following permissions:
+   - **Send Messages** - Required for bot responses
+   - **Read Message History** - Required to read user commands
+   - **Use External Emojis** (optional) - For enhanced visual responses
+
+5. **Bot invite URL format:**
+```
+https://discord.com/api/oauth2/authorize?client_id=YOUR_BOT_CLIENT_ID&permissions=3072&scope=bot
+```
+Replace `YOUR_BOT_CLIENT_ID` with your bot's client ID from the Developer Portal.
 
 ## Data Persistence
 
@@ -116,6 +146,34 @@ scryer/
 ├── .dockerignore     # Docker ignore patterns
 └── README.md         # This file
 ```
+
+## Troubleshooting
+
+### Common Issues
+
+**Bot doesn't respond to commands:**
+- Verify the bot token is correct in your `.env` file
+- Check that the bot is online in your Discord server (should show as online)
+- Ensure the bot has "Send Messages" permission in the channel
+- Commands must start with `!` (e.g., `!help` not `help`)
+
+**Bot loses data after restart:**
+- For local development: Event data files are automatically saved
+- For Docker: Ensure volume mounts are configured correctly
+- Check file permissions if running in Docker
+
+**Scheduled cleanup not working:**
+- The bot clears data every Monday at 11:59 PM Eastern Time
+- Use `!toggleskip` to skip cleanup for one week if needed
+- Check container timezone settings if using Docker
+
+### Getting Help
+
+If you encounter issues:
+1. Check the console/logs for error messages
+2. Verify your Discord bot token and permissions
+3. Test commands in a channel where the bot has full permissions
+4. Create an issue on GitHub with details about the problem
 
 ## Contributing
 
