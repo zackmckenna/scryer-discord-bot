@@ -86,3 +86,14 @@ Desktop.ini
 
 # Docker
 .dockerignore
+
+# Backup files
+*.backup*
+*.bak
+*.old
+*.fixed
+*.working-backup
+*.tar.gz
+*.patch
+scryer.log
+scryer-new.log

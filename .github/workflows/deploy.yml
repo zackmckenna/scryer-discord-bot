@@ -1,0 +1,28 @@
+name: Deploy Scryer
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Pull latest code
+        run: |
+          cd /home/zack/scryer
+          git pull origin master
+
+      - name: Install dependencies
+        run: |
+          cd /home/zack/scryer
+          npm ci --omit=dev
+
+      - name: Restart bot
+        run: pm2 restart scryer
+
+      - name: Verify health
+        run: |
+          sleep 5
+          curl -sf http://localhost:3099/health | grep -q 'status:ok'
+          echo Bot is healthy

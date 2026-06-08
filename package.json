@@ -11,10 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@axiomhq/js": "^1.6.1",
+    "@libsql/client": "^0.17.3",
     "discord": "^0.8.2",
-    "discord.js": "^14.13.0",
+    "discord.js": "^14.26.4",
     "dotenv": "^16.3.1",
     "node-cron": "^3.0.2",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "pg": "^8.21.0",
+    "redis": "^6.0.0"
   }
 }
